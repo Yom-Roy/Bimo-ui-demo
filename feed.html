@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bimo Feed</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle at 20% 20%, #1a1a1a, #000);
+            font-family: "Inter", sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+        }
+
+        /* Limit feed width like Instagram web */
+        #feed {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .post-image {
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            width: 100%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .reaction-bar {
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.4rem 1rem;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen text-white">
+    <!-- Header -->
+    <header class="glass p-4 rounded-3xl mx-4 mt-6 mb-6 flex items-center justify-between max-w-[600px] mx-auto">
+        <h1 class="text-2xl font-semibold">Bimo</h1>
+        <i class="ri-search-line text-2xl text-white/80"></i>
+    </header>
+
+    <!-- Feed -->
+    <main id="feed" class="mt-6 space-y-6 px-2">
+        <!-- JS will insert posts -->
+    </main>
+
+    <script>
+        const posts = [
+            {
+                user: "John Doe",
+                avatar: "https://i.pinimg.com/736x/f0/8b/3b/f08b3b9bbe3332dee702ef73b41402cf.jpg",
+                time: "2h ago",
+                image: "https://i.pinimg.com/736x/b3/5b/11/b35b11a20472a2750914132d189f982d.jpg",
+                caption: "Loving this view! 🌄 #sunset #nature"
+            },
+            {
+                user: "Jane Smith",
+                avatar: "https://i.pinimg.com/736x/93/fb/a8/93fba8d979644511fdc80985d0bd537b.jpg",
+                time: "5h ago",
+                image: "https://i.pinimg.com/736x/0c/e0/78/0ce078d8e0f25ede442279d69e15ea89.jpg",
+                caption: "Enjoying my morning coffee ☕ #relax #morningvibes"
+            },
+            {
+                user: "Shinchan Nohara",
+                avatar: "https://i.pinimg.com/736x/92/eb/27/92eb27e8eda5333b273f36b9ca7c6106.jpg",
+                time: "1d ago",
+                image: "https://i.pinimg.com/736x/34/d9/d6/34d9d60f2856382018fff232393fe361.jpg",
+                caption: "Detective Shinchan with @mosau! 🥾 #detective"
+            }
+        ];
+
+        const feed = document.getElementById("feed");
+
+        posts.forEach(post => {
+            const postCard = document.createElement("div");
+            postCard.className = "glass rounded-2xl overflow-hidden border border-white/20 shadow-lg relative";
+
+            postCard.innerHTML = `
+                <!-- Post Header -->
+                <div class="flex items-center gap-3 p-4">
+                    <img src="${post.avatar}" alt="user" class="w-10 h-10 rounded-full border-2 border-white/30" />
+                    <div>
+                        <h3 class="font-semibold">${post.user}</h3>
+                        <p class="text-white/70 text-sm">${post.time}</p>
+                    </div>
+                    <i class="ri-more-2-line ml-auto text-white/70"></i>
+                </div>
+
+                <!-- Post Image -->
+                <div class="relative">
+                    <img src="${post.image}" alt="post" class="post-image" />
+
+                    <!-- Glass Reaction Bar on top --> 
+                    <div class='flex items-center justify-between'> 
+                        <div class="absolute bottom-2 left-4 flex gap-4 bg-white/10 backdrop-blur-2xl border border-white/30 rounded-full px-4 py-2 items-center">
+                             <i class="ri-heart-line text-2xl cursor-pointer hover:text-red-500 transition"></i> <i class="ri-chat-3-line text-2xl cursor-pointer hover:text-cyan-400 transition"></i> 
+                             </div> 
+                             <div class="absolute right-4 bottom-2 flex gap-4 bg-white/10 backdrop-blur-2xl border border-white/30 rounded-full px-3 py-2 items-center"> 
+                                <i class="ri-share-line text-2xl cursor-pointer hover:text-purple-400 transition"></i> 
+                                </div> 
+                                </div>
+                                 </div>
+                </div>
+
+                <!-- Caption -->
+                <div class="px-4 pb-4 mt-2">
+                    <span class="font-semibold">${post.user}</span>
+                    <span class="text-white/80"> ${post.caption}</span>
+                </div>
+            `;
+
+            feed.appendChild(postCard);
+        });
+    </script>
+</body>
+
+</html>

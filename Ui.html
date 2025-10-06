@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Social Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle at 20% 20%, #1a1a1a, #000);
+            font-family: "Inter", sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(20px);
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col text-white relative overflow-x-hidden">
+    <!-- Header -->
+    <header class="glass p-5 rounded-3xl m-4 mt-6">
+        <div class="flex items-center justify-between flex-wrap gap-3">
+            <div class="flex items-center gap-2">
+                <i class="ri-shield-user-fill text-3xl text-cyan-400"></i>
+                <h1 class="text-2xl font-semibold">YourPlatform</h1>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button class="glass px-4 py-2 rounded-full text-sm hover:bg-white/20 transition">
+                    Log in
+                </button>
+                <button
+                    class="bg-gradient-to-r from-cyan-400 to-purple-500 px-5 py-2 rounded-full text-sm font-semibold">
+                    Join Now
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="flex-1 flex flex-col items-center justify-center text-center px-6 mt-10">
+        <h2 class="text-3xl sm:text-5xl font-bold leading-tight">
+            India’s <span class="text-cyan-400">Privacy-First</span> Social Platform
+        </h2>
+        <p class="text-white/70 mt-4 max-w-md">
+            Share moments, stay connected, and own your data. No ads. No tracking. Just people.
+        </p>
+
+        <a href="/feed.html"
+            class="mt-8 bg-gradient-to-r from-cyan-400 to-purple-500 px-8 py-3 rounded-full font-semibold text-black hover:opacity-90 transition">
+            Get Started
+        </a>
+    </section>
+
+    <!-- Features -->
+    <section class="mt-12 px-6 space-y-6 pb-20">
+        <div class="glass p-5 rounded-3xl">
+            <div class="flex items-center gap-4">
+                <i class="ri-shield-keyhole-line text-3xl text-cyan-400"></i>
+                <div>
+                    <h3 class="text-lg font-semibold">Data stays in India</h3>
+                    <p class="text-white/70 text-sm">
+                        All your data is hosted in Indian data centers — encrypted and private.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass p-5 rounded-3xl">
+            <div class="flex items-center gap-4">
+                <i class="ri-lock-line text-3xl text-cyan-400"></i>
+                <div>
+                    <h3 class="text-lg font-semibold">End-to-end encryption</h3>
+                    <p class="text-white/70 text-sm">
+                        Your messages are between you and the person you send them to — no one else.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass p-5 rounded-3xl">
+            <div class="flex items-center gap-4">
+                <i class="ri-hearts-line text-3xl text-cyan-400"></i>
+                <div>
+                    <h3 class="text-lg font-semibold">Built for community</h3>
+                    <p class="text-white/70 text-sm">
+                        Connect through posts, groups, and stories without algorithms deciding for you.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating Chat Button -->
+    <button id="chatBtn"
+        class="fixed bottom-6 right-6 bg-white text-black p-4 rounded-full shadow-lg hover:bg-white/80 transition">
+        <i class="ri-chat-1-line text-2xl"></i>
+    </button>
+
+    <!-- Chat Popup -->
+    <div id="chatPopup"
+        class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+        <div class="glass border border-white/20 rounded-3xl w-full max-w-sm p-6 relative">
+            <button id="closeChat" class="absolute top-3 right-3 bg-white/20 p-2 rounded-full hover:bg-white/40">
+                <i class="ri-close-line text-lg"></i>
+            </button>
+            <h4 class="text-lg font-semibold mb-3">Quick Support</h4>
+            <p class="text-sm text-white/70 mb-4">We’re here to listen — tell us what’s up.</p>
+            <textarea placeholder="Type your message..."
+                class="w-full p-3 bg-white/10 border border-white/30 rounded-xl focus:outline-none resize-none text-sm text-white"
+                rows="4"></textarea>
+            <button
+                class="mt-4 bg-gradient-to-r from-cyan-400 to-purple-500 px-5 py-2 rounded-full w-full font-semibold text-black">
+                Send
+            </button>
+        </div>
+    </div>
+
+    <script>
+        const chatBtn = document.getElementById("chatBtn");
+        const chatPopup = document.getElementById("chatPopup");
+        const closeChat = document.getElementById("closeChat");
+
+        chatBtn.onclick = () => chatPopup.classList.remove("hidden");
+        closeChat.onclick = () => chatPopup.classList.add("hidden");
+    </script>
+</body>
+
+</html>
