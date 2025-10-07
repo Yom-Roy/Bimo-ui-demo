@@ -9,27 +9,49 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         body {
-            background: radial-gradient(circle at 20% 20%, #1a1a1a, #000);
             font-family: "Inter", sans-serif;
+            transition: background 0.4s, color 0.4s;
+        }
+
+        .dark body {
+            background: radial-gradient(circle at 20% 20%, #1a1a1a, #000);
+            color: white;
+        }
+
+        .light body {
+            background: radial-gradient(circle at 20% 20%, #f0f0f0, #dcdcdc);
+            color: #111;
         }
 
         .glass {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.25);
             backdrop-filter: blur(15px);
+            transition: background 0.4s, border 0.4s;
         }
 
-        /* Limit feed width like Instagram web */
+        .light .glass {
+            background: rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
         #feed {
             max-width: 600px;
             margin: 0 auto;
         }
 
         .post-image {
-            aspect-ratio: 1/1;
             object-fit: cover;
+            max-height: 80vh;
+            height: auto;
             width: 100%;
+            perspective: 100;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border 0.4s;
+        }
+
+        .light .post-image {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         .reaction-bar {
@@ -41,17 +63,22 @@
     </style>
 </head>
 
-<body class="min-h-screen text-white">
+<body class="min-h-screen text-white transition-colors duration-300">
     <!-- Header -->
     <header class="glass p-4 rounded-3xl mx-4 mt-6 mb-6 flex items-center justify-between max-w-[600px] mx-auto">
         <h1 class="text-2xl font-semibold">Bimo</h1>
-        <i class="ri-search-line text-2xl text-white/80"></i>
+
+        <div class="flex items-center gap-4">
+            <i class="ri-search-line text-2xl text-white/80 light:text-black/70"></i>
+            <button id="themeToggle" class="text-2xl cursor-pointer transition hover:scale-110">
+                <i class="ri-sun-line hidden" id="sunIcon"></i>
+                <i class="ri-moon-line" id="moonIcon"></i>
+            </button>
+        </div>
     </header>
 
     <!-- Feed -->
-    <main id="feed" class="mt-6 space-y-6 px-2">
-        <!-- JS will insert posts -->
-    </main>
+    <main id="feed" class="mt-6 space-y-6 px-2"></main>
 
     <script>
         const posts = [
@@ -75,6 +102,13 @@
                 time: "1d ago",
                 image: "https://i.pinimg.com/736x/34/d9/d6/34d9d60f2856382018fff232393fe361.jpg",
                 caption: "Detective Shinchan with @mosau! 🥾 #detective"
+            },
+            {
+                user: "Shinchan Nohara",
+                avatar: "https://i.pinimg.com/736x/92/eb/27/92eb27e8eda5333b273f36b9ca7c6106.jpg",
+                time: "1d ago",
+                image: "https://i.pinimg.com/736x/1b/d6/6a/1bd66abe389ac5b204be51119015bb82.jpg",
+                caption: "Detective Shinchan with @mosau! 🥾 #detective"
             }
         ];
 
@@ -82,43 +116,70 @@
 
         posts.forEach(post => {
             const postCard = document.createElement("div");
-            postCard.className = "glass rounded-2xl overflow-hidden border border-white/20 shadow-lg relative";
-
+            postCard.className =
+                "glass rounded-2xl overflow-hidden border border-white/20 shadow-lg relative transition";
             postCard.innerHTML = `
-                <!-- Post Header -->
-                <div class="flex items-center gap-3 p-4">
-                    <img src="${post.avatar}" alt="user" class="w-10 h-10 rounded-full border-2 border-white/30" />
-                    <div>
-                        <h3 class="font-semibold">${post.user}</h3>
-                        <p class="text-white/70 text-sm">${post.time}</p>
-                    </div>
-                    <i class="ri-more-2-line ml-auto text-white/70"></i>
-                </div>
+        <div class="flex items-center gap-3 p-4">
+          <img src="${post.avatar}" alt="user" class="w-10 h-10 rounded-full border-2 border-white/30" />
+          <div>
+            <h3 class="font-semibold">${post.user}</h3>
+            <p class="text-white/70 light:text-black/60 text-sm">${post.time}</p>
+          </div>
+          <i class="ri-more-2-line ml-auto text-white/70 light:text-black/60"></i>
+        </div>
 
-                <!-- Post Image -->
-                <div class="relative">
-                    <img src="${post.image}" alt="post" class="post-image" />
+        <div class="relative">
+          <img src="${post.image}" alt="post" class="post-image" />
+          <div class='flex items-center justify-between text-white'>
+            <div class="absolute bottom-2 left-4 flex gap-4 bg-black/20 backdrop-blur-2xl border border-black/40 rounded-full px-4 py-1 items-center light:bg-black/10">
+              <i class="ri-heart-line text-xl cursor-pointer hover:text-red-500 transition"></i>
+              <i class="ri-chat-3-line text-xl cursor-pointer hover:text-cyan-400 transition"></i> 
+            </div> 
+            <div class="absolute right-4 bottom-2 flex gap-4 bg-black/20 backdrop-blur-2xl border border-black/40 rounded-full px-2 py-1 items-center light:bg-black/10"> 
+              <i class="ri-share-line text-xl cursor-pointer hover:text-purple-400 transition"></i> 
+            </div> 
+          </div>
+        </div>
 
-                    <!-- Glass Reaction Bar on top --> 
-                    <div class='flex items-center justify-between'> 
-                        <div class="absolute bottom-2 left-4 flex gap-4 bg-white/10 backdrop-blur-2xl border border-white/30 rounded-full px-4 py-2 items-center">
-                             <i class="ri-heart-line text-2xl cursor-pointer hover:text-red-500 transition"></i> <i class="ri-chat-3-line text-2xl cursor-pointer hover:text-cyan-400 transition"></i> 
-                             </div> 
-                             <div class="absolute right-4 bottom-2 flex gap-4 bg-white/10 backdrop-blur-2xl border border-white/30 rounded-full px-3 py-2 items-center"> 
-                                <i class="ri-share-line text-2xl cursor-pointer hover:text-purple-400 transition"></i> 
-                                </div> 
-                                </div>
-                                 </div>
-                </div>
-
-                <!-- Caption -->
-                <div class="px-4 pb-4 mt-2">
-                    <span class="font-semibold">${post.user}</span>
-                    <span class="text-white/80"> ${post.caption}</span>
-                </div>
-            `;
-
+        <div class="px-4 pb-4 mt-2 ">
+          <span class="font-semibold">${post.user}</span>
+          <span class="dark:text-white/80 text-white/80"> ${post.caption}</span>
+        </div>
+      `;
             feed.appendChild(postCard);
+        });
+
+        // Theme toggle logic
+        const themeToggle = document.getElementById("themeToggle");
+        const sunIcon = document.getElementById("sunIcon");
+        const moonIcon = document.getElementById("moonIcon");
+
+        function setTheme(theme) {
+            document.documentElement.classList.remove("light", "dark");
+            document.documentElement.classList.add(theme);
+            localStorage.setItem("theme", theme);
+            updateIcons(theme);
+        }
+
+        function updateIcons(theme) {
+            if (theme === "dark") {
+                sunIcon.classList.remove("hidden");
+                moonIcon.classList.add("hidden");
+                document.body.classList.add("text-white");
+            } else {
+                sunIcon.classList.add("hidden");
+                moonIcon.classList.remove("hidden");
+                document.body.classList.remove("text-white");
+            }
+        }
+
+        const savedTheme = localStorage.getItem("theme") ||
+            (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener("click", () => {
+            const newTheme = document.documentElement.classList.contains("dark") ? "light" : "dark";
+            setTheme(newTheme);
         });
     </script>
 </body>
