@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bimo Profile Card</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background: radial-gradient(circle at 20% 20%, #1a1a1a, #000);
+            font-family: "Inter", sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+        }
+
+        .profile-card {
+            max-width: 400px;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex items-center justify-center text-white p-4">
+    <div
+        class="glass w-[50vh] profile-card rounded-3xl p-6 flex flex-col items-center shadow-lg border border-white/20">
+        <!-- Profile Picture -->
+        <img src="https://i.pinimg.com/736x/f0/8b/3b/f08b3b9bbe3332dee702ef73b41402cf.jpg" alt="User Avatar"
+            class="w-28 h-28 rounded-full border-2 border-white/30 mb-4 object-cover">
+
+        <!-- Username -->
+        <h2 class="text-2xl font-semibold mb-2">Soham Pramanik</h2>
+
+        <!-- Bio / Status -->
+        <p class="text-white/70 text-center mb-4">
+            Founder & CEO of Ezet Galaxy
+        </p>
+
+        <!-- Followers / Following Stats -->
+        <div class="flex gap-6 mb-4">
+            <div class="text-center">
+                <p class="font-semibold text-lg">120M</p>
+                <p class="text-white/70 text-sm">Followers</p>
+            </div>
+            <div class="text-center">
+                <p class="font-semibold text-lg">85</p>
+                <p class="text-white/70 text-sm">Following</p>
+            </div>
+            <div class="text-center">
+                <p class="font-semibold text-lg">32</p>
+                <p class="text-white/70 text-sm">Posts</p>
+            </div>
+        </div>
+
+        <!-- Profile Links / Buttons -->
+        <div class="flex  justify-center gap-3 w-full">
+            <a href="https://instagram.com/iamsoham_z" target="_blank"
+                class="glass flex items-center justify-center gap-1 text-sm py-1 px-2 rounded-full border border-white/30 hover:bg-white/10 transition">
+                <i class="ri-instagram-line"></i> iamsoham_z
+            </a>
+            <a href="https://x.com/Jetre_"
+                class="glass flex items-center justify-center gap-1 text-sm py-1 px-2 rounded-full border border-white/30 hover:bg-white/10 transition">
+                <i class="ri-twitter-x-line"></i> Jetre_
+            </a>
+            <!-- <a href="#"
+                class="glass flex items-center justify-center gap-1 text-sm py-1 px-3 rounded-full border border-white/30 hover:bg-white/10 transition">
+                <i class="ri-earth-line"></i> soham.bimo
+            </a> -->
+        </div>
+    </div>
+</body>
+
+</html>

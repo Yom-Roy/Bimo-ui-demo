@@ -77,6 +77,10 @@
         </div>
     </header>
 
+
+
+
+
     <!-- Feed -->
     <main id="feed" class="mt-6 space-y-6 px-2"></main>
 
@@ -87,7 +91,8 @@
                 avatar: "https://i.pinimg.com/736x/f0/8b/3b/f08b3b9bbe3332dee702ef73b41402cf.jpg",
                 time: "2h ago",
                 image: "https://i.pinimg.com/736x/b3/5b/11/b35b11a20472a2750914132d189f982d.jpg",
-                caption: "Loving this view! 🌄 #sunset #nature"
+                caption: "Loving this view! 🌄 #sunset #nature",
+                song: ""
             },
             {
                 user: "Jane Smith",
@@ -120,7 +125,7 @@
                 "glass rounded-2xl overflow-hidden border border-white/20 shadow-lg relative transition";
             postCard.innerHTML = `
         <div class="flex items-center gap-3 p-4">
-          <img src="${post.avatar}" alt="user" class="w-10 h-10 rounded-full border-2 border-white/30" />
+          <img src="${post.avatar}" onclick='openPro()' alt="user" class="w-10 h-10 rounded-full border-2 border-white/30" />
           <div>
             <h3 class="font-semibold">${post.user}</h3>
             <p class="text-white/70 light:text-black/60 text-sm">${post.time}</p>
@@ -148,6 +153,11 @@
       `;
             feed.appendChild(postCard);
         });
+
+
+        const openPro = () => {
+            window.location.assign('/profile.html')
+        }
 
         // Theme toggle logic
         const themeToggle = document.getElementById("themeToggle");
@@ -181,6 +191,9 @@
             const newTheme = document.documentElement.classList.contains("dark") ? "light" : "dark";
             setTheme(newTheme);
         });
+
+
+
     </script>
 </body>
 
